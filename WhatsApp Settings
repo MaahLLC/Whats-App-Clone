@@ -1,0 +1,86 @@
+'use client'
+
+import { useState } from 'react'
+import { ChevronRight, Bell, Lock, MessageSquare, Phone, Circle, Moon, Info, User, Key, Database, HelpCircle } from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Switch } from "@/components/ui/switch"
+import { ScrollArea } from "@/components/ui/scroll-area"
+
+export defaault function Component() {
+  const [darkMode, setDarkMode] = useState(false)
+
+  const settingsItems = [
+    { icon: <User className="h-5 w-5" />, label: 'Account', href: '#account' },
+    { icon: <Bell className="h-5 w-5" />, label: 'Notifications', href: '#notifications' },
+    { icon: <Lock className="h-5 w-5" />, label: 'Privacy', href: '#privacy' },
+    { icon: <MessageSquare className="h-5 w-5" />, label: 'Chats', href: '#chats' },
+    { icon: <Phone className="h-5 w-5" />, label: 'Calls', href: '#calls' },
+    { icon: <Circle className="h-5 w-5" />, label: 'Status', href: '#status' },
+    { icon: <Database className="h-5 w-5" />, label: 'Storage and Data', href: '#storage' },
+    { icon: <Key className="h-5 w-5" />, label: 'Two-Step Verification', href: '#2sv' },
+    { icon: <HelpCircle className="h-5 w-5" />, label: 'Help', href: '#help' },
+  ]
+
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-100'}`}>
+      <div className="max-w-md mx-auto bg-white dark:bg-gray-800 shadow-md">
+        <header className="bg-green-600 dark:bg-green-800 text-white p-4">
+          <h1 className="text-xl font-semibold">Settings</h1>
+        </header>
+
+        <ScrollArea className="h-[calc(100vh-64px)]">
+          <div className="p-4">
+            <div className="flex items-center space-x-4 mb-6">
+              <Avatar className="h-16 w-16">
+                <AvatarImage src="/placeholder.svg?height=64&width=64" alt="Profile picture" />
+                <AvatarFallback>JD</AvatarFallback>
+              </Avatar>
+              <div>
+                <h2 className="text-xl font-semibold dark:text-white">John Doe</h2>
+                <p className="text-gray-600 dark:text-gray-300">Hey there! I'm using WhatsApp.</p>
+              </div>
+            </div>
+
+            <nav>
+              <ul className="space-y-2">
+                {settingsItems.map((item, index) => (
+                  <li key={index}>
+                    <a
+                      href={item.href}
+                      className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <span className="text-gray-500 dark:text-gray-400">{item.icon}</span>
+                        <span className="text-gray-800 dark:text-white">{item.label}</span>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-gray-400" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div className="mt-6">
+              <div className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                <div className="flex items-center space-x-3">
+                  <Moon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                  <span className="text-gray-800 dark:text-white">Dark Mode</span>
+                </div>
+                <Switch
+                  checked={darkMode}
+                  onCheckedChange={setDarkMode}
+                  aria-label="Toggle dark mode"
+                />
+              </div>
+            </div>
+
+            <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
+              <p>WhatsApp from Meta</p>
+              <p>Version 2.23.13.76</p>
+            </div>
+          </div>
+        </ScrollArea>
+      </div>
+    </div>
+  )
+}
