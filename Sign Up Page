@@ -1,0 +1,112 @@
+'use client'
+
+import { useState } from 'react'
+import { ChevronDown, Check } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
+
+export default function Component() {
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [name, setName] = useState('')
+  const [agreed, setAgreed] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Here you would typically send the data to your backend
+    console.log('Submitted:', { phoneNumber, name, agreed })
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold text-gray-800">Welcome to WhatsApp</h1>
+          <p className="text-gray-600 mt-2">Sign up to get started</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="country">Country</Label>
+            <Select defaultValue="us">
+              <SelectTrigger id="country">
+                <SelectValue placeholder="Select your country" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="us">United States</SelectItem>
+                <SelectItem value="uk">United Kingdom</SelectItem>
+                <SelectItem value="ca">Canada</SelectItem>
+                <SelectItem value="au">Australia</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="phone">Phone number</Label>
+            <div className="flex">
+              <Select defaultValue="+1">
+                <SelectTrigger className="w-[80px]">
+                  <SelectValue placeholder="Code" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="+1">+1</SelectItem>
+                  <SelectItem value="+44">+44</SelectItem>
+                  <SelectItem value="+61">+61</SelectItem>
+                </SelectContent>
+              </Select>
+              <Input
+                id="phone"
+                type="tel"
+                placeholder="Your phone number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                className="flex-1 ml-2"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="name">Name</Label>
+            <Input
+              id="name"
+              type="text"
+              placeholder="Your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="terms"
+              checked={agreed}
+              onCheckedChange={(checked) => setAgreed(checked as boolean)}
+              required
+            />
+            <Label
+              htmlFor="terms"
+              className="text-sm text-gray-600 cursor-pointer"
+            >
+              I agree to the Terms of Service and Privacy Policy
+            </Label>
+          </div>
+
+          <Button type="submit" className="w-full" disabled={!agreed}>
+            Sign Up
+          </Button>
+        </form>
+
+        <p className="text-center text-sm text-gray-600 mt-6">
+          Already have an account?{' '}
+          <a href="#" className="text-green-600 hover:underline">
+            Log in
+          </a>
+        </p>
+      </div>
+    </div>
+  )
+}
