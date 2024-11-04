@@ -1,0 +1,90 @@
+'use client'
+
+import { useState } from 'react'
+import { ChevronLeft, Camera, Edit2, QrCode } from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+
+export default function Component() {
+  const [name, setName] = useState('John Doe')
+  const [about, setAbout] = useState('Hey there! I am using WhatsApp.')
+  const [phone, setPhone] = useState('+1 (555) 123-4567')
+
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <div className="max-w-md mx-auto bg-white shadow-md">
+        <header className="bg-green-600 text-white p-4 flex items-center">
+          <Button variant="ghost" size="icon" className="mr-2">
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
+          <h1 className="text-xl font-semibold">Profile</h1>
+        </header>
+
+        <div className="p-4">
+          <div className="flex flex-col items-center mb-6">
+            <div className="relative">
+              <Avatar className="h-24 w-24">
+                <AvatarImage src="/placeholder.svg?height=96&width=96" alt="Profile picture" />
+                <AvatarFallback>JD</AvatarFallback>
+              </Avatar>
+              <Button size="icon" className="absolute bottom-0 right-0 bg-green-600 hover:bg-green-700 text-white rounded-full p-2">
+                <Camera className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="name" className="text-sm text-gray-500">Name</Label>
+              <div className="flex items-center mt-1">
+                <Input
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="flex-grow"
+                />
+                <Button variant="ghost" size="icon" className="ml-2">
+                  <Edit2 className="h-4 w-4 text-green-600" />
+                </Button>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex justify-between items-center">
+                <Label htmlFor="about" className="text-sm text-gray-500">About</Label>
+                <Button variant="ghost" size="icon">
+                  <Edit2 className="h-4 w-4 text-green-600" />
+                </Button>
+              </div>
+              <Textarea
+                id="about"
+                value={about}
+                onChange={(e) => setAbout(e.target.value)}
+                className="mt-1"
+                rows={3}
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="phone" className="text-sm text-gray-500">Phone</Label>
+              <Input
+                id="phone"
+                value={phone}
+                readOnly
+                className="mt-1 bg-gray-100"
+              />
+            </div>
+          </div>
+
+          <Button className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white">
+            <QrCode className="h-4 w-4 mr-2" />
+            QR code
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}
